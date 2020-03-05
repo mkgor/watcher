@@ -1,0 +1,20 @@
+version: "3.6"
+
+services:
+  fpm:
+    build: .
+    ports:
+      - 89:85
+    command:
+      php -S 0.0.0.0:85 -t /var/www/localhost/
+    volumes:
+    - .:/var/www/localhost
+    links:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 33061:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dev
